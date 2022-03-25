@@ -1,0 +1,9 @@
+{
+	"name": "sviat-az-lab-df",
+	"location": "germanywestcentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "18c60fce-980a-45e8-a635-aa8bb3cbf3f5",
+		"tenantId": "b2ee9ae4-c92c-4d7f-a763-ff4e68157a3f"
+	}
+}
