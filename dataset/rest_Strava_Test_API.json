@@ -1,0 +1,12 @@
+{
+	"name": "rest_Strava_Test_API",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "REST_Strava_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
