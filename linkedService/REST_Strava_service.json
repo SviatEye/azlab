@@ -5,11 +5,11 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://www.strava.com/api/v3/athlete\" \"Authorization: Bearer [[017b2b1e2b7e3a69cbd9457f255d9c8e0355300e]]",
+			"url": "https://developers.strava.com/docs/reference/#api-Athletes-getLoggedInAthlete",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Basic",
 			"userName": "newstepsviat@gmail.com",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDY1Q0NCMkU5LTFGM0YtNDIzMC05QjY4LTE2ODVDQkUyNDU4Nl9jOGJmYmJlOC1lNjM5LTRmNTktODM4OS05NDk4MzIwOTk1Y2QiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDY1Q0NCMkU5LTFGM0YtNDIzMC05QjY4LTE2ODVDQkUyNDU4Nl8wYTA3YTg0Ni03NGNhLTRhMGYtYTJjNC0yYzUyM2M3MjIzZGMiDQp9"
 		}
 	}
 }
