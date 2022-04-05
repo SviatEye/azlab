@@ -1,0 +1,12 @@
+{
+	"name": "src_REST_Dummy",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "rs_Dummy_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}

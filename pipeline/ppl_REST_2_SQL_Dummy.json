@@ -1,0 +1,101 @@
+{
+	"name": "ppl_REST_2_SQL_Dummy",
+	"properties": {
+		"activities": [
+			{
+				"name": "cd_REST_to_SQLS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['data'][0]['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data'][0]['employee_name']"
+								},
+								"sink": {
+									"name": "employee_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data'][0]['employee_salary']"
+								},
+								"sink": {
+									"name": "employee_salary",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data'][0]['employee_age']"
+								},
+								"sink": {
+									"name": "employee_age",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data'][0]['profile_image']"
+								},
+								"sink": {
+									"name": "profile_image"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "src_REST_Dummy",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
