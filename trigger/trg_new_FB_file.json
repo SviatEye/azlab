@@ -10,8 +10,8 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"ppl_param_Fname": "@triggerBody().fileName",
-					"ppl_param_Cname": "@triggerBody().contPath"
+					"ppl_param_Fname": "@triggerBody().file_Name",
+					"ppl_param_Cname": "@triggerBody().cont_Name"
 				}
 			}
 		],
