@@ -106,6 +106,10 @@
 							"file_Name": {
 								"value": "@pipeline().parameters.ppl_param_Fname",
 								"type": "Expression"
+							},
+							"cont_Name": {
+								"value": "@pipeline().parameters.ppl_param_Cname",
+								"type": "Expression"
 							}
 						}
 					}
