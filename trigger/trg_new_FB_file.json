@@ -1,0 +1,29 @@
+{
+	"name": "trg_new_FB_file",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "ppl_Trigger_CSV",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"ppl_param_Fname": "@triggerBody().fileName",
+					"ppl_param_Cname": "@triggerBody().contPath"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/fb-resource/blobs/tuk_offsite_fb",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/1c4310d1-7a07-4408-b669-4db0f77d414d/resourceGroups/sviat_Az_lab_rg/providers/Microsoft.Storage/storageAccounts/sviatazlbstacc",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
