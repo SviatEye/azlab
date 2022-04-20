@@ -31,11 +31,29 @@
 				"inputs": [
 					{
 						"referenceName": "src_DS_cont",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": {
+								"value": "@pipeline().parameters.ppl_File_Name",
+								"type": "Expression"
+							},
+							"containerName": {
+								"value": "@pipeline().parameters.ppl_Container_Name",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"ppl_File_Name": {
+				"type": "string"
+			},
+			"ppl_Container_Name": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
