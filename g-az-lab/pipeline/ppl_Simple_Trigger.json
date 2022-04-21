@@ -26,7 +26,369 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "date_start",
+									"type": "String"
+								},
+								"sink": {
+									"name": "date_start",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "date_stop",
+									"type": "String"
+								},
+								"sink": {
+									"name": "date_stop",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "adset_id",
+									"type": "String"
+								},
+								"sink": {
+									"name": "adset_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "adset_name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "adset_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "impressions",
+									"type": "String"
+								},
+								"sink": {
+									"name": "impressions",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "reach",
+									"type": "String"
+								},
+								"sink": {
+									"name": "reach",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "frequency",
+									"type": "String"
+								},
+								"sink": {
+									"name": "frequency",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "clicks",
+									"type": "String"
+								},
+								"sink": {
+									"name": "clicks",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "cpm",
+									"type": "String"
+								},
+								"sink": {
+									"name": "cpm",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "cpc",
+									"type": "String"
+								},
+								"sink": {
+									"name": "cpc",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ctr",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ctr",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "spend",
+									"type": "String"
+								},
+								"sink": {
+									"name": "spend",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "sales_fp_on_value",
+									"type": "String"
+								},
+								"sink": {
+									"name": "sales_fp_on_value",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "sales_fp_off_value",
+									"type": "String"
+								},
+								"sink": {
+									"name": "sales_fp_off_value",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "sales_br_on_value",
+									"type": "String"
+								},
+								"sink": {
+									"name": "sales_br_on_value",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "sales_br_off_value",
+									"type": "String"
+								},
+								"sink": {
+									"name": "sales_br_off_value",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "sales_fp_on_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "sales_fp_on_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "sales_fp_off_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "sales_fp_off_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "sales_br_on_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "sales_br_on_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "sales_br_off_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "sales_br_off_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "post_engagement_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "post_engagement_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "link_click_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "link_click_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "page_engagement_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "page_engagement_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "post_reaction_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "post_reaction_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "post_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "post_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "comment_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "comment_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "video_p100_value",
+									"type": "String"
+								},
+								"sink": {
+									"name": "video_p100_value",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "video_p100_28d_click_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "video_p100_28d_click_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "video_p100_28d_view_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "video_p100_28d_view_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "video_p95_value",
+									"type": "String"
+								},
+								"sink": {
+									"name": "video_p95_value",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "video_p95_28d_click_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "video_p95_28d_click_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "video_p95_28d_view_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "video_p95_28d_view_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "video_view_value",
+									"type": "String"
+								},
+								"sink": {
+									"name": "video_view_value",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "video_view_28d_click_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "video_view_28d_click_count",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "video_view_28d_view_count",
+									"type": "String"
+								},
+								"sink": {
+									"name": "video_view_28d_view_count",
+									"type": "String"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
@@ -42,6 +404,12 @@
 								"type": "Expression"
 							}
 						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "tgt_ds_SQL_table",
+						"type": "DatasetReference"
 					}
 				]
 			}
