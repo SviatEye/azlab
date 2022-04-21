@@ -1,0 +1,16 @@
+{
+	"name": "tgt_ds_SQL_table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_Az_DB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "stepanov",
+			"table": "dh_csv"
+		}
+	}
+}
