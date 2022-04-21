@@ -1,0 +1,10 @@
+{
+	"name": "ls_key_vault_con",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://keyVault-ms-lab.vault.azure.net/"
+		}
+	}
+}
