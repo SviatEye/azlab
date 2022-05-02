@@ -597,7 +597,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/s-stepanov-src/blobs/tuk",
+					"blobPathBeginsWith": "/s-stepanov-src/blobs/",
 					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('trgr_add_CSVs_properties_typeProperties_scope')]",
