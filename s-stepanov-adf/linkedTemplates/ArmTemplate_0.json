@@ -1,0 +1,614 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "s-stepanov-adf"
+		},
+		"azBlStrg_stepanov_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'azBlStrg_stepanov'"
+		},
+		"ls_Az_DB_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_Az_DB'"
+		},
+		"ls_key_vault_con_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://keyVault-ms-lab.vault.azure.net/"
+		},
+		"trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_File_Name": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
+		"trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_Container_Name": {
+			"type": "string",
+			"defaultValue": "@triggerBody().containerName"
+		},
+		"trgr_add_CSVs_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/ce859c42-caf4-42ac-8ab2-dcbb9d73110a/resourceGroups/ms-azure-lab/providers/Microsoft.Storage/storageAccounts/godellabaccount"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/azBlStrg_stepanov')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('azBlStrg_stepanov_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_Az_DB')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_Az_DB_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_key_vault_con')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('ls_key_vault_con_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_DS_cont')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "azBlStrg_stepanov",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"fileName": {
+						"type": "string"
+					},
+					"containerName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"container": {
+							"value": "@dataset().containerName",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/azBlStrg_stepanov')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tgt_ds_SQL_table')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Az_DB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "stepanov",
+					"table": "dh_csv"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Az_DB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ppl_Simple_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "cd_Cont_2_SQL",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "date_start",
+											"type": "String"
+										},
+										"sink": {
+											"name": "date_start",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "date_stop",
+											"type": "String"
+										},
+										"sink": {
+											"name": "date_stop",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "adset_id",
+											"type": "String"
+										},
+										"sink": {
+											"name": "adset_id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "adset_name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "adset_name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "impressions",
+											"type": "String"
+										},
+										"sink": {
+											"name": "impressions",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "reach",
+											"type": "String"
+										},
+										"sink": {
+											"name": "reach",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "frequency",
+											"type": "String"
+										},
+										"sink": {
+											"name": "frequency",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "clicks",
+											"type": "String"
+										},
+										"sink": {
+											"name": "clicks",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "cpm",
+											"type": "String"
+										},
+										"sink": {
+											"name": "cpm",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "cpc",
+											"type": "String"
+										},
+										"sink": {
+											"name": "cpc",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ctr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ctr",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "spend",
+											"type": "String"
+										},
+										"sink": {
+											"name": "spend",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sales_fp_on_value",
+											"type": "String"
+										},
+										"sink": {
+											"name": "sales_fp_on_value",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sales_fp_off_value",
+											"type": "String"
+										},
+										"sink": {
+											"name": "sales_fp_off_value",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sales_br_on_value",
+											"type": "String"
+										},
+										"sink": {
+											"name": "sales_br_on_value",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sales_br_off_value",
+											"type": "String"
+										},
+										"sink": {
+											"name": "sales_br_off_value",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sales_fp_on_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "sales_fp_on_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sales_fp_off_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "sales_fp_off_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sales_br_on_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "sales_br_on_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sales_br_off_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "sales_br_off_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "post_engagement_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "post_engagement_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "link_click_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "link_click_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "page_engagement_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "page_engagement_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "post_reaction_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "post_reaction_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "post_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "post_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "comment_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "comment_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "video_p100_value",
+											"type": "String"
+										},
+										"sink": {
+											"name": "video_p100_value",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "video_p100_28d_click_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "video_p100_28d_click_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "video_p100_28d_view_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "video_p100_28d_view_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "video_p95_value",
+											"type": "String"
+										},
+										"sink": {
+											"name": "video_p95_value",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "video_p95_28d_click_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "video_p95_28d_click_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "video_p95_28d_view_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "video_p95_28d_view_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "video_view_value",
+											"type": "String"
+										},
+										"sink": {
+											"name": "video_view_value",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "video_view_28d_click_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "video_view_28d_click_count",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "video_view_28d_view_count",
+											"type": "String"
+										},
+										"sink": {
+											"name": "video_view_28d_view_count",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "src_DS_cont",
+								"type": "DatasetReference",
+								"parameters": {
+									"fileName": {
+										"value": "@pipeline().parameters.ppl_File_Name",
+										"type": "Expression"
+									},
+									"containerName": {
+										"value": "@pipeline().parameters.ppl_Container_Name",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tgt_ds_SQL_table",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"ppl_File_Name": {
+						"type": "string"
+					},
+					"ppl_Container_Name": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/src_DS_cont')]",
+				"[concat(variables('factoryId'), '/datasets/tgt_ds_SQL_table')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trgr_add_CSVs')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "ppl_Simple_Trigger",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"ppl_File_Name": "[parameters('trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_File_Name')]",
+							"ppl_Container_Name": "[parameters('trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_Container_Name')]"
+						}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/s-stepanov-src/blobs/tuk",
+					"blobPathEndsWith": ".csv",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trgr_add_CSVs_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/ppl_Simple_Trigger')]"
+			]
+		}
+	]
+}

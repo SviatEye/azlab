@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "s-stepanov-adf"
+		},
+		"azBlStrg_stepanov_connectionString": {
+			"value": ""
+		},
+		"ls_Az_DB_connectionString": {
+			"value": ""
+		},
+		"ls_key_vault_con_properties_typeProperties_baseUrl": {
+			"value": "https://keyVault-ms-lab.vault.azure.net/"
+		},
+		"trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_File_Name": {
+			"value": "@triggerBody().fileName"
+		},
+		"trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_Container_Name": {
+			"value": "@triggerBody().containerName"
+		},
+		"trgr_add_CSVs_properties_typeProperties_scope": {
+			"value": "/subscriptions/ce859c42-caf4-42ac-8ab2-dcbb9d73110a/resourceGroups/ms-azure-lab/providers/Microsoft.Storage/storageAccounts/godellabaccount"
+		}
+	}
+}

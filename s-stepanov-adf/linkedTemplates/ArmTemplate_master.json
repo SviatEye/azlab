@@ -1,0 +1,84 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "s-stepanov-adf"
+		},
+		"azBlStrg_stepanov_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'azBlStrg_stepanov'"
+		},
+		"ls_Az_DB_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_Az_DB'"
+		},
+		"ls_key_vault_con_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://keyVault-ms-lab.vault.azure.net/"
+		},
+		"trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_File_Name": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
+		"trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_Container_Name": {
+			"type": "string",
+			"defaultValue": "@triggerBody().containerName"
+		},
+		"trgr_add_CSVs_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/ce859c42-caf4-42ac-8ab2-dcbb9d73110a/resourceGroups/ms-azure-lab/providers/Microsoft.Storage/storageAccounts/godellabaccount"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "s-stepanov-adf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"azBlStrg_stepanov_connectionString": {
+						"value": "[parameters('azBlStrg_stepanov_connectionString')]"
+					},
+					"ls_Az_DB_connectionString": {
+						"value": "[parameters('ls_Az_DB_connectionString')]"
+					},
+					"ls_key_vault_con_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_key_vault_con_properties_typeProperties_baseUrl')]"
+					},
+					"trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_File_Name": {
+						"value": "[parameters('trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_File_Name')]"
+					},
+					"trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_Container_Name": {
+						"value": "[parameters('trgr_add_CSVs_properties_ppl_Simple_Trigger_parameters_ppl_Container_Name')]"
+					},
+					"trgr_add_CSVs_properties_typeProperties_scope": {
+						"value": "[parameters('trgr_add_CSVs_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
