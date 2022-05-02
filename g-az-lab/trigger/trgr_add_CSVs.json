@@ -1,0 +1,29 @@
+{
+	"name": "trgr_add_CSVs",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "ppl_Simple_Trigger",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"ppl_File_Name": "@triggerBody().fileName",
+					"ppl_Container_Name": "@triggerBody().containerName"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/s-stepanov-src/blobs/tuk",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/ce859c42-caf4-42ac-8ab2-dcbb9d73110a/resourceGroups/ms-azure-lab/providers/Microsoft.Storage/storageAccounts/godellabaccount",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
