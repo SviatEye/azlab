@@ -597,7 +597,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/s-stepanov-src/blobs/",
+					"blobPathBeginsWith": "/s-stepanov-src/blobs/tuk_offsite_fb_api_perf",
 					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('trgr_add_CSVs_properties_typeProperties_scope')]",
