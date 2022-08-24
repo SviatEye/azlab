@@ -11,6 +11,12 @@
 		"ls_Az_DB_connectionString": {
 			"value": ""
 		},
+		"ls_AzureDatabricks_accessToken": {
+			"value": ""
+		},
+		"ls_AzureDatabricks_properties_typeProperties_existingClusterId": {
+			"value": "0816-145620-6vchgsc3"
+		},
 		"ls_key_vault_con_properties_typeProperties_baseUrl": {
 			"value": "https://keyVault-ms-lab.vault.azure.net/"
 		},

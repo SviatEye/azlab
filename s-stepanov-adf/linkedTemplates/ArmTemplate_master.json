@@ -15,6 +15,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_Az_DB'"
 		},
+		"ls_AzureDatabricks_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_AzureDatabricks'"
+		},
+		"ls_AzureDatabricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0816-145620-6vchgsc3"
+		},
 		"ls_key_vault_con_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://keyVault-ms-lab.vault.azure.net/"
@@ -63,6 +71,12 @@
 					},
 					"ls_Az_DB_connectionString": {
 						"value": "[parameters('ls_Az_DB_connectionString')]"
+					},
+					"ls_AzureDatabricks_accessToken": {
+						"value": "[parameters('ls_AzureDatabricks_accessToken')]"
+					},
+					"ls_AzureDatabricks_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_AzureDatabricks_properties_typeProperties_existingClusterId')]"
 					},
 					"ls_key_vault_con_properties_typeProperties_baseUrl": {
 						"value": "[parameters('ls_key_vault_con_properties_typeProperties_baseUrl')]"
