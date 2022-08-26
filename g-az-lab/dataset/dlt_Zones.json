@@ -1,0 +1,44 @@
+{
+	"name": "dlt_Zones",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azBlbSt_Geo_Api",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "zones.csv",
+				"container": "weather"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "zone_id",
+				"type": "String"
+			},
+			{
+				"name": "lon_left",
+				"type": "String"
+			},
+			{
+				"name": "lat_bottom",
+				"type": "String"
+			},
+			{
+				"name": "lon_right",
+				"type": "String"
+			},
+			{
+				"name": "lat_top",
+				"type": "String"
+			}
+		]
+	}
+}
