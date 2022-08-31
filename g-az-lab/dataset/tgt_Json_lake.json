@@ -1,0 +1,112 @@
+{
+	"name": "tgt_Json_lake",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_Json_Lab4",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Bookshelf": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"ID": {
+								"type": "integer"
+							},
+							"Title": {
+								"type": "string"
+							},
+							"Author": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"Name": {
+											"type": "string"
+										},
+										"Country": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"keys": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string"
+							},
+							"value": {
+								"type": "string"
+							},
+							"encrypted": {
+								"type": "boolean"
+							}
+						}
+					}
+				},
+				"hostName": {
+					"type": "string"
+				},
+				"instanceId": {
+					"type": "string"
+				},
+				"source": {
+					"type": "string"
+				},
+				"decryptionKeyId": {
+					"type": "string"
+				},
+				"masterKey": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"value": {
+							"type": "string"
+						},
+						"encrypted": {
+							"type": "boolean"
+						}
+					}
+				},
+				"functionKeys": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string"
+							},
+							"value": {
+								"type": "string"
+							},
+							"encrypted": {
+								"type": "boolean"
+							}
+						}
+					}
+				},
+				"systemKeys": {
+					"type": "array"
+				}
+			}
+		}
+	}
+}
