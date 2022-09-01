@@ -33,8 +33,8 @@
 				}
 			},
 			{
-				"name": "flt_CSV",
-				"type": "Filter",
+				"name": "Lookup1",
+				"type": "Lookup",
 				"dependsOn": [
 					{
 						"activity": "gmt_Zones",
@@ -43,70 +43,52 @@
 						]
 					}
 				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@activity('gmt_Zones').output.childItems",
-						"type": "Expression"
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
 					},
-					"condition": {
-						"value": "@endswith(item().name, 'csv')",
-						"type": "Expression"
-					}
+					"dataset": {
+						"referenceName": "dlt_Zones",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
-				"name": "for_Zones",
+				"name": "ForEach1",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "flt_CSV",
+						"activity": "Lookup1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					}
 				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('flt_CSV').output",
-						"type": "Expression"
-					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "Copy data1",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"enableStaging": false
-							}
-						},
-						{
-							"name": "Web1",
-							"type": "WebActivity",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": []
-						}
-					]
-				}
+				"userProperties": []
 			}
 		],
+		"parameters": {
+			"file_name": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
