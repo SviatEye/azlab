@@ -124,7 +124,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "api.openweathermap.org/data/2.5/box/city?bbox=@item().lon_left,@item().lat_bottom,@item().lon_right,@item().lat_top,100&appid=https://keyvault-ms-lab.vault.azure.net/secrets/Weather-prj-SAz/d2fa620bd23f4d168b71c2c44113f75b",
+									"value": "api.openweathermap.org/data/2.5/box/city?bbox=@{item().lon_left},@{item().lat_bottom},@{item().lon_right},@{item().lat_top},100&appid=6e377a92d19085c8d18856fa6a19ac0c",
 									"type": "Expression"
 								},
 								"method": "GET"
