@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "gmt_Zones",
+				"name": "act_gmt_Zones",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
-					"timeout": "0.12:00:00",
+					"timeout": "0.00:05:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -33,18 +33,18 @@
 				}
 			},
 			{
-				"name": "Lookup1",
+				"name": "act_Lookup_Rows",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "gmt_Zones",
+						"activity": "act_gmt_Zones",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					}
 				],
 				"policy": {
-					"timeout": "0.12:00:00",
+					"timeout": "0.00:05:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -69,19 +69,6 @@
 					},
 					"firstRowOnly": false
 				}
-			},
-			{
-				"name": "ForEach1",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Lookup1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": []
 			}
 		],
 		"parameters": {
