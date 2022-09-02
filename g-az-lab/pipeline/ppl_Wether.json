@@ -69,11 +69,51 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "act_ForEach_Zones",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "act_Lookup_Rows",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('act_Lookup_Rows').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "act_Set_Var_Each_Row",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "row",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
 			"file_name": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"row": {
+				"type": "String"
 			}
 		},
 		"annotations": []
