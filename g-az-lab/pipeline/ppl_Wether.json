@@ -98,7 +98,7 @@
 							"typeProperties": {
 								"variableName": "row",
 								"value": {
-									"value": "@item()",
+									"value": "@{item()}",
 									"type": "Expression"
 								}
 							}
