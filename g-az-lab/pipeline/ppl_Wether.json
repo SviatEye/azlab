@@ -137,11 +137,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"file_name": {
-				"type": "string"
-			}
-		},
 		"variables": {
 			"row": {
 				"type": "String"
