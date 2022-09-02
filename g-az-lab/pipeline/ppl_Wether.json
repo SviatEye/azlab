@@ -57,6 +57,10 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
+							"wildcardFileName": {
+								"value": "@activity('act_gmt_Zones').output",
+								"type": "Expression"
+							},
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
