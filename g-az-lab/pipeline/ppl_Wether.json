@@ -101,6 +101,33 @@
 									"type": "Expression"
 								}
 							}
+						},
+						{
+							"name": "act_Run_API",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "act_Set_Var_Each_Row",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "api.openweathermap.org/data/2.5/box/city?bbox=@item().lon_left,@item().lat_bottom,@item().lon_right,@item().lat_top,100&appid=@item()",
+									"type": "Expression"
+								},
+								"method": "GET"
+							}
 						}
 					]
 				}
