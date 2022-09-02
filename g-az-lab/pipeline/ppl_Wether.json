@@ -57,10 +57,7 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFileName": {
-								"value": "@activity('act_gmt_Zones').output",
-								"type": "Expression"
-							},
+							"wildcardFileName": "*",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -127,7 +124,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "api.openweathermap.org/data/2.5/box/city?bbox=@item().lon_left,@item().lat_bottom,@item().lon_right,@item().lat_top,100&appid=@item()",
+									"value": "api.openweathermap.org/data/2.5/box/city?bbox=@item().lon_left,@item().lat_bottom,@item().lon_right,@item().lat_top,100&appid=https://keyvault-ms-lab.vault.azure.net/secrets/Weather-prj-SAz/d2fa620bd23f4d168b71c2c44113f75b",
 									"type": "Expression"
 								},
 								"method": "GET"
