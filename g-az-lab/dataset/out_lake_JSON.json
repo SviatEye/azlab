@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "API_JSON_output",
+				"fileName": "API_JSON_output.json",
 				"fileSystem": "s-stepanov"
 			},
 			"columnDelimiter": ",",

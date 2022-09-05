@@ -145,7 +145,7 @@
 							"typeProperties": {
 								"variableName": "api_Var",
 								"value": {
-									"value": "@{activity('act_Run_API').output}",
+									"value": "@{activity('act_Run_API').output.list}",
 									"type": "Expression"
 								}
 							}
