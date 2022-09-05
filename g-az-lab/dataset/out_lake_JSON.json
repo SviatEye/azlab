@@ -11,7 +11,6 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "API_JSON_output",
-				"folderPath": "raw",
 				"fileSystem": "s-stepanov"
 			},
 			"columnDelimiter": ",",
