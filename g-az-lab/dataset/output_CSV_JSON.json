@@ -1,0 +1,22 @@
+{
+	"name": "output_CSV_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azBlbSt_Geo_Api",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "API_output_2J.json",
+				"container": "weather2json"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "",
+			"quoteChar": ""
+		},
+		"schema": []
+	}
+}

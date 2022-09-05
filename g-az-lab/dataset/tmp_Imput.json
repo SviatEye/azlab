@@ -1,0 +1,26 @@
+{
+	"name": "tmp_Imput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azBlbSt_Geo_Api",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "input.txt",
+				"container": "weather"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			}
+		]
+	}
+}

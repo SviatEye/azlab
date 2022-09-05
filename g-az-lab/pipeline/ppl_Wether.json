@@ -170,8 +170,72 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"enableStaging": false
-							}
+								"source": {
+									"type": "DelimitedTextSource",
+									"additionalColumns": [
+										{
+											"name": "myCol",
+											"value": {
+												"value": "@variables('api_Var')",
+												"type": "Expression"
+											}
+										}
+									],
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "myCol",
+												"type": "String"
+											},
+											"sink": {
+												"type": "String",
+												"physicalType": "String",
+												"ordinal": 1
+											}
+										}
+									],
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "tmp_Imput",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "output_CSV_JSON",
+									"type": "DatasetReference"
+								}
+							]
 						}
 					]
 				}
