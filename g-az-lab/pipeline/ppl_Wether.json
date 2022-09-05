@@ -124,7 +124,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "api.openweathermap.org/data/2.5/box/city?bbox=@{item().lon_left},@{item().lat_bottom},@{item().lon_right},@{item().lat_top},100&appid=6e377a92d19085c8d18856fa6a19ac0c",
+									"value": "https://api.openweathermap.org/data/2.5/box/city?bbox=20,51.2,25,56.2,100&appid=6e377a92d19085c8d18856fa6a19ac0c",
 									"type": "Expression"
 								},
 								"method": "GET"
