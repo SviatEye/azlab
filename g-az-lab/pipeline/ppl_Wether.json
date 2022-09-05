@@ -193,7 +193,7 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
+										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -232,7 +232,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "output_CSV_JSON",
+									"referenceName": "out_lake_JSON",
 									"type": "DatasetReference"
 								}
 							]
