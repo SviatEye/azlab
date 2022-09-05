@@ -1,0 +1,23 @@
+{
+	"name": "out_lake_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_Weather",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "API_JSON_output",
+				"folderPath": "raw",
+				"fileSystem": "s-stepanov"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "",
+			"quoteChar": ""
+		},
+		"schema": []
+	}
+}
