@@ -239,6 +239,33 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "act_Logic_Email_Send",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "act_ForEach_Zones",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"body": {
+						"value": "{\n    \"pipelinename\":\"@{pipeline().Pipeline}\",\n    \"datafactoryname\":\"@{pipeline().DataFactory}\",\n    \"runid\":\"@{pipeline().RunId}\",\n    \"Rowread\":\"@{activity('act_Lookup_Rows').output.count}\"\n}",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
